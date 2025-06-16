@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Relógio Digital</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: #000;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .clock-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 4rem;
+      padding: 2rem 4rem;
+      border-radius: 20px;
+    }
+
+    .time {
+      font-size: 6rem;
+      font-weight: bold;
+      letter-spacing: 4px;
+    }
+
+    .details {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .details div {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .clock-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+      }
+
+      .time {
+        font-size: 4rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .time span {
+        display: block;
+        line-height: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="clock-container">
+    <div class="time" id="time">
+      <span id="h">00</span>
+      <span id="m">00</span>
+      <span id="s">00</span>
+    </div>
+    <div class="details">
+      <div id="date">Segunda-feira, 1 de Janeiro de 2025</div>
+    </div>
+  </div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const horas = now.getHours().toString().padStart(2, '0');
+      const minutos = now.getMinutes().toString().padStart(2, '0');
+      const segundos = now.getSeconds().toString().padStart(2, '0');
+
+      document.getElementById('h').textContent = horas;
+      document.getElementById('m').textContent = minutos;
+      document.getElementById('s').textContent = segundos;
+
+      const dias = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+      const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho',
+                     'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+      const diaSemana = dias[now.getDay()];
+      const dia = now.getDate();
+      const mes = meses[now.getMonth()];
+      const ano = now.getFullYear();
+      document.getElementById('date').textContent = `${diaSemana}, ${dia} de ${mes} de ${ano}`;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+</body>
+</html>
